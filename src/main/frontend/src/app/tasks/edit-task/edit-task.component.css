@@ -1,0 +1,10 @@
+.modal {
+  background: rgba(0,0,0,0.6);
+}
+.dp-popup {
+  position: absolute;
+  padding:10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 100000;
+}
