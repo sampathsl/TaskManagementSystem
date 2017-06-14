@@ -52,10 +52,6 @@ export class TaskService {
 
   updateTask(task : Task, checked : boolean) {
 
-    console.log("task.resolvedAt :: " + task.resolvedAt)
-    console.log("task.dueDate :: " + task.dueDate)
-    console.log("task.reminderAt :: " + task.reminderAt)
-
     task = new Task(this.dateFormatPipe.transform(task.createdAt),this.dateFormatPipe.transform(this.toUTCDate(new Date()).toString().toString()),
       this.dateFormatPipe.transform(task.dueDate),this.dateFormatPipe.transform(task.resolvedAt),task.title,task.description,
       task.priority,task.taskStatus,task.id,task.version,this.dateFormatPipe.transform(task.reminderAt));
