@@ -10,5 +10,5 @@
 	To execute jar file run `java -jar target\TaskManagementSystem-0.0.1-SNAPSHOT.jar`.
 	Open the web browser with http://localhost:8080/ URL.
 	To change the frontend go to the frontend project and build project using ng commands.
-	After build copy `dist` folder content to the 	`src\main\resources\static` folder.
+	After build frontend project copy `dist` folder contents to the `src\main\resources\static` folder.
 
