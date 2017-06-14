@@ -12,7 +12,7 @@
 	To change the frontend go to the frontend project and build project using ng commands.
 	After build frontend project copy `dist` folder contents to the `src\main\resources\static` folder.
 	
+![tms](https://user-images.githubusercontent.com/353851/27143627-9f5342ee-514c-11e7-94f6-fd8b97002e55.png)
 
-![Simple Task Management System](https://drive.google.com/file/d/0Bx2Z7RxcZYmTRjJRMW9JWmI5WUU/view)
 
 
