@@ -14,6 +14,7 @@ import com.searchink.tms.services.TaskService;
 
 /**
  * Created by SAMPATH on 5/12/2017.
+ * Task scheduler application - inputs sample tasks
  */
 @Component
 public class TaskScheduler extends TimerTask {
@@ -26,6 +27,10 @@ public class TaskScheduler extends TimerTask {
 
     private final static Timer timer = new Timer();
 
+    /**
+     * Creating sample tasks with random data
+     * @param id - task id
+     */
     public void createSampleTasks(Long id) {
 
         final Date createdAt = new Date();

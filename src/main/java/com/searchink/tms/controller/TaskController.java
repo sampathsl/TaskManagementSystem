@@ -138,6 +138,11 @@ public class TaskController {
 		
 	}
 	
+	/**
+	 * Convert Task data transfer object to task entity
+	 * @param taskDTO
+	 * @return
+	 */
 	private Task convertToEntity(TaskDTO taskDTO) {
 		
 		Task task = null;
@@ -161,6 +166,11 @@ public class TaskController {
 	    
 	}
 	
+	/**
+	 * Convert task entity to task data transfer object
+	 * @param task
+	 * @return
+	 */
 	private TaskDTO convertToDto(Task task){
 		
 		TaskDTO taskDTO = null;

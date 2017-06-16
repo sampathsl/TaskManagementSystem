@@ -16,16 +16,27 @@ public class TaskManagementSystemApplication {
 	
 	private static TaskService taskService;
 
+	/**
+	 * Initiate task service
+	 * @param taskService
+	 */
     @Autowired
     public TaskManagementSystemApplication(TaskService taskService){
         TaskManagementSystemApplication.taskService = taskService;
     }
     
+    /**
+     * Set UTC time zone
+     */
     @PostConstruct
     void started() {
       TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
+    /**
+     * Spring boot application starting point
+     * @param args
+     */
 	public static void main(String[] args) {
 		SpringApplication.run(TaskManagementSystemApplication.class, args);
 		new TaskScheduler(taskService).run();
