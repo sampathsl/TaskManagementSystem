@@ -1,4 +1,4 @@
-# TaskManagementSystem
+# Task Management System
 	Simple Task Management System using Angular 4 and Spring boot 1.5.4
 
 ## How to execute the project
