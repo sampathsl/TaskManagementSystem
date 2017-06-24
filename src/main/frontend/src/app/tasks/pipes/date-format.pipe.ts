@@ -11,24 +11,26 @@ REFERENCE : https://www.reddit.com/r/Angular2/comments/4so1j7/how_to_set_locale_
 
 export class DateFormatPipe implements PipeTransform {
 
-  private format : string = 'YYYY-MM-DD HH:mm:ss';
+  private format = 'YYYY-MM-DD HH:mm:ss';
 
   transform(value: string): string {
-    if(value != null){
-      let momentDate = moment(new Date(value));
-      if (momentDate.isValid())
+    if (value != null) {
+      const momentDate = moment(new Date(value));
+      if (momentDate.isValid()) {
         return momentDate.format(this.format);
+      }
     }
     return value;
   }
 
-  transformDate(value : Date): string {
-    if(value != null){
-      let momentDate = moment(value);
-      if (momentDate.isValid())
+  transformDate(value: Date): string {
+    if (value != null) {
+      const momentDate = moment(value);
+      if (momentDate.isValid()) {
         return momentDate.format(this.format);
-      else
+      } else {
         return value.toDateString();
+      }
     }
     return '';
   }

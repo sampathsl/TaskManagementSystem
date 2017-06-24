@@ -15,7 +15,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 
 @Directive({ selector: '[clickOutside]' })
 export class ClickOutsideDirective implements OnInit, OnDestroy, OnChanges {
-  @Input() attachOutsideOnClick: boolean = false;
+  @Input() attachOutsideOnClick: boolean;
   @Output() clickOutside: EventEmitter<Event> = new EventEmitter<Event>();
 
   constructor(
@@ -27,13 +27,13 @@ export class ClickOutsideDirective implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit() {
     this._init();
+    this.attachOutsideOnClick = false;
   }
 
   ngOnDestroy() {
     if (this.attachOutsideOnClick) {
       this._el.nativeElement.removeEventListener('click', this._initOnClickBody);
     }
-
     this._document.body.removeEventListener('click', this._onClickBody);
   }
 

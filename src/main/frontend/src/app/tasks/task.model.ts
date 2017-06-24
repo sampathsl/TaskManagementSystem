@@ -12,13 +12,13 @@ export class Task {
   public description: string;
   public priority: number;
   public taskStatus: TaskStatus;
-  public id : string;
-  public version : string;
+  public id: string;
+  public version: string;
 
 
   constructor(createdAt: string, updatedAt: string, dueDate: string,
               resolvedAt: string, title: string, description: string, priority: number,
-              taskStatus: TaskStatus,id : string,version : string,reminderAt: string) {
+              taskStatus: TaskStatus, id: string, version: string, reminderAt: string) {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.dueDate = dueDate;

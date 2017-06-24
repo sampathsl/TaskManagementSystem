@@ -1,60 +1,70 @@
-import {Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
-import {Task} from "../task.model";
-import {TaskStatus} from "../task-status";
-import {TaskService} from "../task.service";
-import {Router} from "@angular/router";
-import {DatepickerModule} from "ng2-bootstrap";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {SharedService} from "../../shared-service";
-import {DateFormatPipe} from "../pipes/date-format.pipe";
-import {ResponseData} from "app/tasks/ResponseData";
+import {Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Output} from '@angular/core';
+import {Task} from '../task.model';
+import {TaskStatus} from '../task-status';
+import {TaskService} from '../task.service';
+import {Router} from '@angular/router';
+import {DatepickerModule} from 'ng2-bootstrap';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {SharedService} from '../../shared-service';
+import {DateFormatPipe} from '../pipes/date-format.pipe';
+import {ResponseData} from 'app/tasks/response-data';
 
 @Component({
   selector : 'app-add-task',
   templateUrl : './add-task.component.html',
   styleUrls : ['./add-task.component.css'],
-  providers : [DatepickerModule,FormBuilder],
-  host : {
+  providers : [DatepickerModule, FormBuilder],
+  /*host : {
     '(document:click)': 'onClick($event)'
-  }
+  }*/
 })
 
 export class AddTaskComponent implements OnInit {
 
+  responseData: ResponseData = new ResponseData('');
+  addForm: FormGroup;
+  submitted: boolean;
+  events: any[] = [];
+  showDatePickerDueDate: boolean;
+  showDatePickerResovedDate: boolean;
+
+  public taskStates_ = TaskStatus;
+  public task: Task;
+  public keys = Object.keys(this.taskStates_).filter(Number);
+
+  createdAt: FormControl;
+  updatedAt: FormControl;
+  dueDate: FormControl;
+  resolvedAt: FormControl;
+  title: FormControl;
+  description: FormControl;
+  priority: FormControl;
+  taskStatus: FormControl;
+
+  @Input() dueDateText: FormControl;
+  dueDateDate: Date;
+  @Input() resolvedDateText: FormControl;
+  resolvedDateDate: Date;
+  @Output() dateModelChange: EventEmitter<Date> = new EventEmitter();
+
+  @HostListener('(document:click)') onClickOutSide() {
+    this.onClick('$event');
+  }
+
   toUTCDate = function(date){
-    var _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    const _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(),
+      date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
     return _utc;
   };
 
-  responseData : ResponseData = new ResponseData('');
-  addForm : FormGroup;
-  submitted : boolean = false;
-  events : any[] = [];
-  showDatePickerDueDate : boolean = false;
-  showDatePickerResovedDate : boolean = false;
-
-  public taskStates_ = TaskStatus;
-  public task : Task;
-  public keys = Object.keys(this.taskStates_).filter(Number);
-
-  createdAt : FormControl;
-  updatedAt : FormControl;
-  dueDate : FormControl;
-  resolvedAt : FormControl;
-  title : FormControl;
-  description : FormControl;
-  priority : FormControl;
-  taskStatus : FormControl;
-
-  @Input() dueDateText : FormControl;
-  dueDateDate : Date = this.toUTCDate(new Date());
-  @Input() resolvedDateText : FormControl;
-  resolvedDateDate : Date = this.toUTCDate(new Date());
-  @Output() dateModelChange: EventEmitter<Date> = new EventEmitter();
-
-  constructor(@Inject(FormBuilder) fb: FormBuilder,private taskService : TaskService , private router : Router ,
-              private datepickerModule : DatepickerModule,private _eref: ElementRef,private sharedService : SharedService,
-              private dateFormatPipe : DateFormatPipe) {
+  constructor(@Inject(FormBuilder) fb: FormBuilder, private taskService: TaskService , private router: Router ,
+              private datepickerModule: DatepickerModule, private _eref: ElementRef, private sharedService: SharedService,
+              private dateFormatPipe: DateFormatPipe) {
+    this.submitted = false;
+    this.showDatePickerDueDate = false;
+    this.showDatePickerResovedDate = false;
+    this.dueDateDate = this.toUTCDate(new Date());
+    this.resolvedDateDate = this.toUTCDate(new Date());
   }
 
   ngOnInit() {
@@ -74,12 +84,12 @@ export class AddTaskComponent implements OnInit {
 
     this.createdAt = new FormControl(this.toUTCDate(new Date()), Validators.required);
     this.updatedAt = new FormControl(null);
-    this.dueDate = new FormControl(null,Validators.required);
+    this.dueDate = new FormControl(null, Validators.required);
     this.dueDateText = new FormControl(null);
     this.resolvedAt = new FormControl(null);
     this.resolvedDateText = new FormControl(null);
-    this.title = new FormControl('', [Validators.required,Validators.pattern(".{5,50}")]);
-    this.description = new FormControl('', [Validators.required,Validators.pattern(".{5,200}")]);
+    this.title = new FormControl('', [Validators.required, Validators.pattern(".{5,50}")]);
+    this.description = new FormControl('', [Validators.required, Validators.pattern(".{5,200}")]);
     this.priority = new FormControl("0", Validators.required);
     this.taskStatus = new FormControl('ACTIVE', Validators.required);
 
@@ -102,7 +112,7 @@ export class AddTaskComponent implements OnInit {
 
   }
 
-  addTaskSubmit(model : Task,isValidForm : boolean) {
+  addTaskSubmit(model: Task, isValidForm: boolean) {
 
     this.submitted = true;
 
@@ -122,17 +132,17 @@ export class AddTaskComponent implements OnInit {
         ''
       );
 
-      this.taskService.saveTask(this.task,isValidForm)
+      this.taskService.saveTask(this.task, isValidForm)
         .subscribe(
           (data: any) => {
             this.responseData = data;
             this.router.navigate(['/addTask']);
           },
           function (error) {
-            //console.log(error);
+            // console.log(error);
           },
           function () {
-            //console.log('finally');
+            // console.log('finally');
           }
         );
 
@@ -166,14 +176,14 @@ export class AddTaskComponent implements OnInit {
     this.closeDatepickerResolvedDate();
   }
 
-  private applyDueDate() : void {
-    var date = this.dateFormatPipe.transformDate(this.dueDateDate);
+  private applyDueDate(): void {
+    const date = this.dateFormatPipe.transformDate(this.dueDateDate);
     this.addForm.controls['dueDateText'].setValue(date);
     this.dateModelChange.emit(this.dueDateDate);
   }
 
-  private applyResolvedDate() : void {
-    var date = this.dateFormatPipe.transformDate(this.resolvedDateDate);
+  private applyResolvedDate(): void {
+    const date = this.dateFormatPipe.transformDate(this.resolvedDateDate);
     this.addForm.controls['resolvedDateText'].setValue(date);
     this.dateModelChange.emit(this.dueDateDate);
   }
@@ -199,11 +209,11 @@ export class AddTaskComponent implements OnInit {
   }
 
   onClickedOutsideDueDate(event) {
-    if (this.showDatePickerDueDate) this.closeDatepickerDueDate();
+    if (this.showDatePickerDueDate) {this.closeDatepickerDueDate()};
   }
 
   onClickedOutsideResolvedDate(event) {
-    if (this.showDatePickerResovedDate) this.closeDatepickerResolvedDate();
+    if (this.showDatePickerResovedDate) {this.closeDatepickerResolvedDate()};
   }
 
 }

@@ -50,7 +50,7 @@ import {SharedService} from "./shared-service";
     NgxPaginationModule,
     ClickOutsideModule
   ],
-  providers: [TaskService,DateFormatPipe,ClickOutsideDirective,ClickOutsideModule,SharedService],
+  providers: [TaskService, DateFormatPipe , ClickOutsideDirective , ClickOutsideModule , SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

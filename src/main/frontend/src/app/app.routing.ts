@@ -6,7 +6,7 @@ import { Routes,RouterModule } from '@angular/router';
 import { TasksComponent } from './tasks/tasks.component';
 import {AddTaskComponent} from "./tasks/add-task/add-task.component";
 
-const router : Routes = [
+const router: Routes = [
 
   /*{ path : '' , redirectTo : '/api/v1/tasks' , pathMatch : 'full' },*/
   { path: '' , component : TasksComponent },
