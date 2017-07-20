@@ -1,4 +1,4 @@
-package com.searchink.tms;
+package com.sampath.tms;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

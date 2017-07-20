@@ -1,15 +1,13 @@
-package com.searchink.tms;
+package com.sampath.tms;
 
-import java.util.TimeZone;
-
-import javax.annotation.PostConstruct;
-
+import com.sampath.tms.scheduler.TaskScheduler;
+import com.sampath.tms.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.searchink.tms.scheduler.TaskScheduler;
-import com.searchink.tms.services.TaskService;
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
 
 @SpringBootApplication
 public class TaskManagementSystemApplication {
